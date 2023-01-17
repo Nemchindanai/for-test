@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useAppContext } from "../context/state";
+
 // import DatePicker from "react-datepicker";
 // import TimePicker from "react-time-picker";
 import axios from "axios";
@@ -15,9 +15,6 @@ const NewTask = ({ onCloseAdd }) => {
     name: false,
     description: false,
   });
-
-  const { Modal } = useAppContext();
-  const { setModalSuccess } = Modal();
 
   useEffect(() => {
     if (name) {
@@ -51,8 +48,8 @@ const NewTask = ({ onCloseAdd }) => {
           }
         )
         .then((res) => {
-          if (res.status == 200) {
-            setModalSuccess(true);
+          if (res.status === 200) {
+            window.location.reload(false);
           }
         })
         .catch((err) => {

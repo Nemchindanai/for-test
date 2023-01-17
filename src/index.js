@@ -5,15 +5,13 @@ import "./assets/custom.css";
 import Routes from "./Routes";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import { AppWrapper } from "./context/state";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <AppWrapper>
-    <BrowserRouter>
-      <Routes />
-    </BrowserRouter>
-  </AppWrapper>
+  <BrowserRouter>
+    <Routes />
+  </BrowserRouter>
+
   // <React.StrictMode>
   //   <App />
   // </React.StrictMode>

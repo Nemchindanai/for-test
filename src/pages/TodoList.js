@@ -10,7 +10,7 @@ const TodoList = () => {
     axios
       .get(env.api + "todos", {
         headers: {
-          Authorization: env.access_token,
+          Authorization: window.localStorage.getItem("access_token"),
         },
       })
       .then((res) => {
@@ -25,7 +25,7 @@ const TodoList = () => {
 
   return (
     <>
-      <div className="p-4">
+      <div className="p-4 ">
         {todo_list.map((item, index) => (
           <ListTask data={item} key={index} />
         ))}

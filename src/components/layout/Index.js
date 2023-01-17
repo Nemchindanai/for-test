@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ModalSuccess } from "../modal";
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -17,7 +16,6 @@ const Layout = ({ children }) => {
     <React.Fragment>
       {location.pathname !== "/" ? (
         <div className="relative">
-          <ModalSuccess />
           <Footer />
           <div className="max-w-md m-auto from-sky-100 via-sky-200 to-sky-300 bg-gradient-to-br h-screen">
             <Header />

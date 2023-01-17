@@ -5,7 +5,7 @@ import axios from "axios";
 import env from "../config";
 
 import "react-datepicker/dist/react-datepicker.css";
-const NewTask = ({ onCloseAdd }) => {
+const NewTask = (props, { onCloseUpdate }) => {
   //   const [date, setDate] = useState(new Date());
   //   const [time, setTime] = useState("10:00");
   const [name, setName] = useState("");
@@ -14,6 +14,12 @@ const NewTask = ({ onCloseAdd }) => {
     name: false,
     description: false,
   });
+
+  useEffect(() => {
+    const data = props.data;
+    setName(data.title);
+    setDescription(data.description);
+  }, [props]);
 
   useEffect(() => {
     if (name) {
@@ -38,8 +44,8 @@ const NewTask = ({ onCloseAdd }) => {
       }
     } else {
       axios
-        .post(
-          env.api + "todos",
+        .put(
+          env.api + "todos/" + props.data._id,
           { title: name, description: description },
           {
             headers: {
@@ -48,7 +54,8 @@ const NewTask = ({ onCloseAdd }) => {
           }
         )
         .then((res) => {
-          if (res.status == 200) {
+          if (res.status === 200) {
+            window.location.reload(false);
           }
         })
         .catch((err) => {
@@ -58,20 +65,21 @@ const NewTask = ({ onCloseAdd }) => {
   };
   return (
     <>
-      <div className="absolute h-screen flex  z-50">
+      <div className="fixed top-0 right-0 h-screen flex  z-50">
         <div
           className="w-[20%] h-full bg-blue-800 opacity-20 "
           onClick={(event) => {
-            onCloseAdd(false);
+            props.onCloseUpdate(false);
           }}
         />
         <div className="w-screen h-full  bg-white">
           <div className="grid gap-y-4 p-4">
-            <div className="font-bold">NEW TASK</div>
+            <div className="font-bold">UPDATE TASK</div>
             <div>
               <div className="text-[12px] text-gray-400 ">Name</div>
               <input
                 onChange={(e) => setName(e.target.value)}
+                value={name}
                 type="text"
                 className={
                   validate_error.name
@@ -87,6 +95,7 @@ const NewTask = ({ onCloseAdd }) => {
               <div className="text-[12px] text-gray-400 ">Description</div>
               <textarea
                 onChange={(e) => setDescription(e.target.value)}
+                value={description}
                 type="text"
                 rows="4"
                 className={
@@ -118,7 +127,7 @@ const NewTask = ({ onCloseAdd }) => {
                 type="submit"
                 className="w-[80px] cursor-pointer text-white rounded-xl bg-gradient-to-tr from-blue-700"
               >
-                Add
+                Update
               </button>
             </div>
           </div>
